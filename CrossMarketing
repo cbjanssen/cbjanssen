@@ -62,6 +62,10 @@ Enter file c<!doctype html>
         }
       ]);
     </script>
+    <br>
+	Dear Visitor<br>
+	For lifelong happiness just enter your biggest wish here: <input type="text">
+	<input type="submit"><br>
   </body>
 </html>
 ontents here
