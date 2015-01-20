@@ -16,6 +16,7 @@
       <th>Edit</th>
       <th>First Name</th>
       <th>Last Name</th>
+      <th>Company</th>
     </tr>
   </thead>
   <tbody>
@@ -27,6 +28,7 @@
       </td>
       <td>{{ user.fName }}</td>
       <td>{{ user.lName }}</td>
+      <td>{{ user.company }}</td>
       <td>
         <button class="btn" ng-click="deleteUser(user.id)">
           <span class="glyphicon glyphicon-pencil"></span>  Delete
@@ -96,11 +98,11 @@
     
     //We can replace this with a Firebase url later on. 
     $scope.users = [
-        {id:1, fName:'Hege'  , lName:"Pege" },
-        {id:2, fName:'Kim'   , lName:"Pim" },
-        {id:3, fName:'Jack'  , lName:"Jones" },
-        {id:4, fName:'John'  , lName:"Doe" },
-        {id:5, fName:'Peter' , lName:"Pan" }
+        {id:1, fName:'Hege'  , lName:"Pege"  ,  company:"KPMG"},
+        {id:2, fName:'Kim'   , lName:"Pim" ,  company:"Google"},
+        {id:3, fName:'Jack'  , lName:"Jones" ,  company:"PWC"},
+        {id:4, fName:'John'  , lName:"Doe" ,  company:"Siemens"},
+        {id:5, fName:'Peter' , lName:"Pan" ,  company:"SMU"}
     ];
     
     $scope.edit = true;
