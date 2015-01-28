@@ -29,6 +29,7 @@
         </button>
       </td>
       <td>{{ user.fName }}</td>
+      
       <td>{{ user.lName }}</td>
       <td>{{ user.store }}</td>
       <td>
@@ -128,11 +129,13 @@
             $scope.incomplete = true;
             $scope.fName = '';
             $scope.lName = '';
+            $scope.email = '';
             console.log("new user.");
         } else {
             $scope.edit = true;
             $scope.fName = $scope.users[id-1].fName;
             $scope.lName = $scope.users[id-1].lName; 
+            $scope.lName = $scope.users[id-1].email; 
             console.log("existing user.");
         }
     };
