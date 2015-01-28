@@ -9,9 +9,7 @@
 <div class="container">
 
 <h3>Customers</h3>
-<h5>Manage stores here</h5>
-
-<a href="http://www.imageupload.co.uk/56J7"><img src="http://www.imageupload.co.uk/images/2015/01/27/happy-cartoon-cupcake-muffin-character-making-perfect-gesture-yellow-brown-sticking-out-its-tongue-drooling-excited-31983726TOjH.jpg" alt="happy-cartoon-cupcake-muffin-character-making-perfect-gesture-yellow-brown-sticking-out-its-tongue-drooling-excited-31983726TOjH.jpg" border="0" /></a> 
+<h5>Manage stores here</h5><a href="http://www.imageupload.co.uk/56J7"><img src="http://www.imageupload.co.uk/images/2015/01/27/happy-cartoon-cupcake-muffin-character-making-perfect-gesture-yellow-brown-sticking-out-its-tongue-drooling-excited-31983726TOjH.jpg" alt="happy-cartoon-cupcake-muffin-character-making-perfect-gesture-yellow-brown-sticking-out-its-tongue-drooling-excited-31983726TOjH.jpg" border="0" /></a> 
 
 <table class="table table-striped">
   <thead>
@@ -43,7 +41,7 @@
 
 <hr>
 <button class="btn btn-success" ng-click="editUser('new')">
-<span class="glyphicon glyphicon-user"></span>  Create Commercial Account
+<span class="glyphicon glyphicon-user"></span>  Create Store Account
 </button>
 <hr>
 
@@ -73,9 +71,9 @@
     </div>
   </div> 
   <div class="form-group">
-    <label class="col-sm-2 control-label">Company:</label>
+    <label class="col-sm-2 control-label">Store:</label>
     <div class="col-sm-10">
-    <input type="text" ng-model="company" ng-disabled="!edit" placeholder="Company">
+    <input type="text" ng-model="store" ng-disabled="!edit" placeholder="Store">
     </div>
   </div>
   <div class="form-group">
@@ -104,17 +102,17 @@
     $scope.fName = '';
     $scope.lName = '';
     $scope.eMail = '';
-    $scope.company = '';
+    $scope.store = '';
     $scope.passw1 = '';
     $scope.passw2 = '';
     
     //We can replace this with a Firebase url later on. 
     $scope.users = [
-        {id:1, fName:'Captain'  , lName:"Hook"  ,  company:"KPMG"},
-        {id:2, fName:'Kim'   , lName:"Pim" ,  company:"Google"},
-        {id:3, fName:'Jack'  , lName:"Jones" ,  company:"PWC"},
-        {id:4, fName:'John'  , lName:"Doe" ,  company:"Siemens"},
-        {id:5, fName:'Peter' , lName:"Pan" ,  company:"SMU"}
+        {id:1, fName:'Captain'  , lName:"Hook"  ,  store:"KPMG"},
+        {id:2, fName:'Kim'   , lName:"Pim" ,  store:"Google"},
+        {id:3, fName:'Jack'  , lName:"Jones" ,  store:"PWC"},
+        {id:4, fName:'John'  , lName:"Doe" ,  store:"Siemens"},
+        {id:5, fName:'Peter' , lName:"Pan" ,  store:"SMU"}
     ];
     
     $scope.edit = true;
