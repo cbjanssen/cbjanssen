@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html ng-app="">
+<head>
+<link rel="stylesheet" href = "http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+</head>
+
+<body ng-controller="userController">
+<div class="container">
+
+<h3>APPetite Dashboard</h3>
+<h5>Manage stores here</h5> 
+<a href="http://www.imageupload.co.uk/56J7"><img src="http://www.imageupload.co.uk/images/2015/01/27/happy-cartoon-cupcake-muffin-character-making-perfect-gesture-yellow-brown-sticking-out-its-tongue-drooling-excited-31983726TOjH.jpg" alt="happy-cartoon-cupcake-muffin-character.jpg" /></a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Edit</th>
+      <th>Store</th>
+      <th>Manager</th>
+      <th>Promotion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="user in users">
+      <td>
+        <button class="btn" ng-click="editUser(user.id)">
+          <span class="glyphicon glyphicon-pencil"></span>  Edit
+        </button>
+      </td>
+      <td>{{ user.fName }}</td>
+      
+      <td>{{ user.lName }}</td>
+      <td>{{ user.store }}</td>
+      <td>
+        <button class="btn" ng-click="deleteUser(user.id)">
+          <span class="glyphicon glyphicon-pencil"></span>  Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+<button class="btn btn-success" ng-click="editUser('new')">
+<span class="glyphicon glyphicon-user"></span>  Add New Store
+</button>
+<hr>
+
+
+<h3 ng-show="edit">Create Store Account:</h3>
+<h3 ng-hide="edit">Edit User:</h3>
+
+<form class="form-horizontal">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">First Name:</label>
+    <div class="col-sm-10">
+    <input type="text" ng-model="fName" ng-disabled="!edit" placeholder="First Name">
+    </div>
+  </div> 
+  <form class="form-horizontal">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Last Name:</label>
+    <div class="col-sm-10">
+    <input type="text" ng-model="lName" ng-disabled="!edit" placeholder="Last Name">
+    </div>
+  </div> 
+    <form class="form-horizontal">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">E-Mail Address:</label>
+    <div class="col-sm-10">
+    <input type="text" ng-model="eMail" ng-disabled="!edit" placeholder="E-Mail Address">
+    </div>
+  </div> 
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Store:</label>
+    <div class="col-sm-10">
+    <input type="text" ng-model="store" ng-disabled="!edit" placeholder="Store">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Password:</label>
+    <div class="col-sm-10">
+    <input type="password" ng-model="passw1" placeholder="Password">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Repeat:</label>
+    <div class="col-sm-10">
+    <input type="password" ng-model="passw2" placeholder="Repeat Password">
+    </div>
+  </div>
+</form>
+
+<hr>
+<button class="btn btn-success" ng-disabled="error || incomplete" ng-click="save()">
+<span class="glyphicon glyphicon-save"></span>  Submit & Promote
+</button>
+
+</div>
+
+<script>
+  function userController($scope) {
+    $scope.fName = '';
+    $scope.lName = '';
+    $scope.eMail = '';
+    $scope.store = '';
+    $scope.passw1 = '';
+    $scope.passw2 = '';
+    
+    //We can replace this with a Firebase url later on. 
+    $scope.users = [
+        {id:1, fName:'Raffles'  , lName:"Jon Chua"  ,  store:"1 for 1"},
+        {id:2, fName:'Orchard'   , lName:"Jason Chong" ,  store:"Free Muffin"},
+        {id:3, fName:'Holland Village'  , lName:"Tim Smith" ,  store:"Free Coffee"},
+        {id:4, fName:'Bukit Thima'  , lName:"Edward Black" ,  store:"Extra Topping"},
+        {id:5, fName:'Chinatown' , lName:"Andrew Tang" ,  store:"Free Piece of Cake"}
+    ];
+    
+    $scope.edit = true;
+    $scope.error = false;
+    $scope.incomplete = false;  
+    
+    
+    $scope.editUser = function(id) {
+        $scope.currentId = id;
+        if (id == 'new') {
+            $scope.edit = true;
+            $scope.incomplete = true;
+            $scope.fName = '';
+            $scope.lName = '';
+            $scope.email = '';
+            console.log("new user.");
+        } else {
+            $scope.edit = true;
+            $scope.fName = $scope.users[id-1].fName;
+            $scope.lName = $scope.users[id-1].lName; 
+            $scope.lName = $scope.users[id-1].email; 
+            console.log("existing user.");
+        }
+    };
+    
+    $scope.$watch('passw1',function() {$scope.test();});
+    $scope.$watch('passw2',function() {$scope.test();});
+    $scope.$watch('fName', function() {$scope.test();});
+    $scope.$watch('lName', function() {$scope.test();});
+    $scope.test = function() {
+        if ($scope.passw1 !== $scope.passw2) {
+            $scope.error = true;
+        } else {
+            $scope.error = false;
+        }
+        $scope.incomplete = false;
+        if ($scope.edit && (!$scope.fName.length || !$scope.lName.length|| !$scope.passw1.length || !$scope.passw2.length)) {
+            $scope.incomplete = true;
+        }
+    };
+    $scope.save = function(){
+      //Add new if no index is passed in.
+      if($scope.currentId=='new'){
+        //Using the array length as the next index while prototyping. 
+        $scope.users.push({id:$scope.users.length+1, fName:$scope.fName  , lName:$scope.lName });
+      }
+      else{
+        $scope.users[$scope.currentId-1].fName = $scope.fName;
+        $scope.users[$scope.currentId-1].lName = $scope.lName;
+      }
+    };
+    
+    $scope.deleteUser = function(index){
+      $scope.users.splice(index-1, 1);
+    }
+    
+    }
+  
+</script>
+</body>
+</html>
+
+
