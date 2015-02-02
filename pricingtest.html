@@ -28,10 +28,9 @@
           <span class="glyphicon glyphicon-pencil"></span>  Edit
         </button>
       </td>
-      <td>{{ user.fName }}</td>
-      
-      <td>{{ user.lName }}</td>
       <td>{{ user.store }}</td>
+      <td>{{ user.manager }}</td>
+      <td>{{ user.promotion }}</td>
       <td>
         <button class="btn" ng-click="deleteUser(user.id)">
           <span class="glyphicon glyphicon-pencil"></span>  Delete
@@ -53,31 +52,25 @@
 
 <form class="form-horizontal">
   <div class="form-group">
-    <label class="col-sm-2 control-label">First Name:</label>
-    <div class="col-sm-10">
-    <input type="text" ng-model="fName" ng-disabled="!edit" placeholder="First Name">
-    </div>
-  </div> 
-  <form class="form-horizontal">
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Last Name:</label>
-    <div class="col-sm-10">
-    <input type="text" ng-model="lName" ng-disabled="!edit" placeholder="Last Name">
-    </div>
-  </div> 
-    <form class="form-horizontal">
-  <div class="form-group">
-    <label class="col-sm-2 control-label">E-Mail Address:</label>
-    <div class="col-sm-10">
-    <input type="text" ng-model="eMail" ng-disabled="!edit" placeholder="E-Mail Address">
-    </div>
-  </div> 
-  <div class="form-group">
     <label class="col-sm-2 control-label">Store:</label>
     <div class="col-sm-10">
     <input type="text" ng-model="store" ng-disabled="!edit" placeholder="Store">
     </div>
-  </div>
+  </div> 
+  <form class="form-horizontal">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Manager:</label>
+    <div class="col-sm-10">
+    <input type="text" ng-model="manager" ng-disabled="!edit" placeholder="Manager">
+    </div>
+  </div> 
+    <form class="form-horizontal">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Promotion:</label>
+    <div class="col-sm-10">
+    <input type="text" ng-model="promotion" ng-disabled="!edit" placeholder="Promotion">
+    </div>
+  </div> 
   <div class="form-group">
     <label class="col-sm-2 control-label">Password:</label>
     <div class="col-sm-10">
@@ -101,20 +94,19 @@
 
 <script>
   function userController($scope) {
-    $scope.fName = '';
-    $scope.lName = '';
-    $scope.eMail = '';
+    $scope.store = '';
+    $scope.manager = '';
     $scope.store = '';
     $scope.passw1 = '';
     $scope.passw2 = '';
     
     //We can replace this with a Firebase url later on. 
     $scope.users = [
-        {id:1, fName:'Raffles'  , lName:"Jon Chua"  ,  store:"1 for 1"},
-        {id:2, fName:'Orchard'   , lName:"Jason Chong" ,  store:"Free Muffin"},
-        {id:3, fName:'Holland Village'  , lName:"Tim Smith" ,  store:"Free Coffee"},
-        {id:4, fName:'Bukit Thima'  , lName:"Edward Black" ,  store:"Extra Topping"},
-        {id:5, fName:'Chinatown' , lName:"Andrew Tang" ,  store:"Free Piece of Cake"}
+        {id:1, store:'Raffles'  , manager:"Jon Chua"  ,  promotion:"1 for 1"},
+        {id:2, store:'Orchard'   , manager:"Jason Chong" ,  promotion:"Free Muffin"},
+        {id:3, store:'Holland Village'  , manager:"Tim Smith" ,  promotion:"Free Coffee"},
+        {id:4, store:'Bukit Thima'  , manager:"Edward Black" ,  promotion:"Extra Topping"},
+        {id:5, store:'Chinatown' , manager:"Andrew Tang" ,  promotion:"Free Piece of Cake"}
     ];
     
     $scope.edit = true;
@@ -127,23 +119,23 @@
         if (id == 'new') {
             $scope.edit = true;
             $scope.incomplete = true;
-            $scope.fName = '';
-            $scope.lName = '';
-            $scope.email = '';
+            $scope.store = '';
+            $scope.manager = '';
+            $scope.promotion = '';
             console.log("new user.");
         } else {
             $scope.edit = true;
-            $scope.fName = $scope.users[id-1].fName;
-            $scope.lName = $scope.users[id-1].lName; 
-            $scope.lName = $scope.users[id-1].email; 
+            $scope.store = $scope.users[id-1].store;
+            $scope.manager = $scope.users[id-1].manager; 
+            $scope.promotion = $scope.users[id-1].promotion; 
             console.log("existing user.");
         }
     };
     
     $scope.$watch('passw1',function() {$scope.test();});
     $scope.$watch('passw2',function() {$scope.test();});
-    $scope.$watch('fName', function() {$scope.test();});
-    $scope.$watch('lName', function() {$scope.test();});
+    $scope.$watch('store', function() {$scope.test();});
+    $scope.$watch('manager', function() {$scope.test();});
     $scope.test = function() {
         if ($scope.passw1 !== $scope.passw2) {
             $scope.error = true;
@@ -151,7 +143,7 @@
             $scope.error = false;
         }
         $scope.incomplete = false;
-        if ($scope.edit && (!$scope.fName.length || !$scope.lName.length|| !$scope.passw1.length || !$scope.passw2.length)) {
+        if ($scope.edit && (!$scope.store.length || !$scope.manager.length|| !$scope.passw1.length || !$scope.passw2.length)) {
             $scope.incomplete = true;
         }
     };
@@ -159,11 +151,11 @@
       //Add new if no index is passed in.
       if($scope.currentId=='new'){
         //Using the array length as the next index while prototyping. 
-        $scope.users.push({id:$scope.users.length+1, fName:$scope.fName  , lName:$scope.lName });
+        $scope.users.push({id:$scope.users.length+1, store:$scope.store  , manager:$scope.manager });
       }
       else{
-        $scope.users[$scope.currentId-1].fName = $scope.fName;
-        $scope.users[$scope.currentId-1].lName = $scope.lName;
+        $scope.users[$scope.currentId-1].store = $scope.manager;
+        $scope.users[$scope.currentId-1].manager = $scope.manager;
       }
     };
     
